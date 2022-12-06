@@ -1,0 +1,27 @@
+name: demo app
+
+on:
+    - workflow_dispatch
+    - pull_request
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code 
+        uses: actions/checkout@v2
+      
+      - name: build image
+        shell: bash
+        run: docker build -t demo-flask-app:latest .
+      
+      - name: Tag image
+        shell: bash
+        run: docker tag demo-flask-app venkattrailrepo.jfrog.io/demo-flask-app/demo-flask-app:latest
+
+      - name: login to JFrog artifactory
+        run: echo "${{secrets.JFROG_PASSWORD}}" | docker login -u ${{secrets.JFROG_USERNAME}} venkattrailrepo.jfrog.io --password-stdin
+
+      - name: push images to JFrog artifactory
+        run: docker push venkattrailrepo.jfrog.io/demo-flask-app/demo-flask-app:latest
