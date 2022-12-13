@@ -24,11 +24,11 @@ jobs:
         run: docker tag demo-flask-app venkattrailrepo.jfrog.io/trail-docker-dev-local/demo-flask-app:${{ github.sha }}
         
       - name: push images to JFrog artifactory
-        run: docker push venkattrailrepo.jfrog.io/trail-docker-dev-local//demo-flask-app:${{ github.sha }}
+        run: docker push venkattrailrepo.jfrog.io/trail-docker-dev-local/demo-flask-app:${{ github.sha }}
 
       - name: Tag image with version
         shell: bash
         run: docker tag demo-flask-app venkattrailrepo.jfrog.io/trail-docker-dev-local/demo-flask-app:latest
         
       - name: push images to JFrog artifactory
-        run: docker push venkattrailrepo.jfrog.io/trail-docker-dev-local//demo-flask-app:latest
+        run: docker push venkattrailrepo.jfrog.io/trail-docker-dev-local/demo-flask-app:latest
